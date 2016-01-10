@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "Code3Column2015-12-22.py", line 76, in <module>
+    column(lines_list)
+  File "Code3Column2015-12-22.py", line 55, in column
+    dic=SeqDic(lines_list)
+  File "Code3Column2015-12-22.py", line 12, in SeqDic
+    Split_list = lines_list.split('>')		    
+AttributeError: 'list' object has no attribute 'split'
