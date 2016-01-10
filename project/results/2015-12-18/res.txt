@@ -1,0 +1,13 @@
+Result 2015-12-18
+
+No code has been made!
+To think about: 
+What is phylogeny inference?
+What does the 3 criterias means? 
+(
+   *  there are more than 50% indels,
+   *  at least 50% of amino acids are unique,
+   *  no amino acid appears more than twice.
+)
+Whats next?
+How to check each columns?
