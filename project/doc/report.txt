@@ -1,1 +1,31 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[swedish]{babel}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\bredd}{350}
+\usepackage{lmodern,bm}
 
+\title{\textbf{Reducing noise in protein multialignments}}
+\author{Eleni Charlotta Larsson\\
+Stockholms University}
+
+\begin{document}
+
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+\section*{Abstract}
+\newpage
+\section*{Author Summary}
+\section*{Introduction}
+Multialigemnts are noisy. Therfore they can have regions that are not inherited and they can also have other regions where the correct mulutialigments are impossible to indicate. This regions are considered as ''bad'' columns and in this rapport a column is considered ''bad'' if more than $50\%$ of the column contains of indels, at least $50\%$ of the amino acides are unique and no amino accid appers more than twice. This columns can be removed and the aim is to test if it is worth to remove the ''bad'' columns or not.
+\section*{Results/Discussion}
+\section*{Materials and Methods}
+The method to test if it is worth removing the ''bad'' collumns or not was to infers ''newnick'' trees with help of the programms fastprot and fnj from the FastPhylo package. The trees where created on the data where the ''bad'' collumns where remmoved as well on the data where the ''bad'' collumns where remaning. This ''newnick'' trees was then commpaired with the referens tree in the data. The data connist of 6 directories (\texttt{asymmetric\_0.5}, \texttt{asymmetric\_1.0}, \texttt{asymmetric\_2.0}, \texttt{symmetric\_0.5}, \texttt{symmetric\_1.0}, \texttt{symmetric\_2.0}) where each diretorie containe one referns tree and 300 FASTA files.\\
+\\
+To get rid of the ''bad'' collumns the proggraming language Python was used. With Python three program was created (Main, ReducingNoise, collumn). The Main program creates the trees and compares them with the refernse tree. The Main program also makes the program to exit with an error masseges if the input is not a FASTA file or if the input is a directorie how does not exist. The ReducingNoise program takes away the bad collumns and the column program creates the columns.          
+    
+\end{document}
