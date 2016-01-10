@@ -91,28 +91,12 @@ for i in range(len(file_path_list)):
 	except IOError:
             sys.stdout.write('"{0}/{1}" is not a FASTA file. This program can only take FASTA files.\n'.format(file_path,onlyfiles[j]))	
             quit()
-#p1=float(FixedCount)/Total
-#p2=float(NotFixedCount)/Total
-#v1=p1*(1-p1)
-#v2=p2*(1-p2)
-#s1=math.sqrt(v1)
-#s2=math.sqrt(v1)
-#over=p1-p2
-#s1_i=float(s1)/Total
-#s2_i=float(s2)/Total
-#inne=s1_i+s2_i
-#SqrtInne=math.sqrt(inne)
-#T=float(over)/SqrtInne
-#upp=T-over
-#N= upp/SqrtInne
+
 print 'Number of times Reference tree is recovered with none reducing file:'
 print NotFixedCount
 print 'Number of times Reference tree is recovered with reducing file:'
 print FixedCount
 print 'Total number of files:'
 print Total
-#print 'Test'
-#print T
-#print 'Standard normal'
-#print N
+
 
