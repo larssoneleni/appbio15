@@ -1,1 +1,135 @@
+2015-12-15
+Today we have choose to work with GitHub for sharing our files.
+We have also created our directory organization with help of the Stafford Nobles article:
+http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424
+We choose to have a top level directory named Project and within that directoty we created five subdirectories 
+(doc, data, src, bin and Results). We also choose to use Nobles idea with dates because we thought it was a good way to connect
+the different parts that we are going to write. For example we can go to our notebook and see that the day (2015-12-15) we
+wrote a script and we can then in Results we can find two files with that date (2015-12-15) in their name: One is containing
+the code and the other one has the results from a test run of the code.
+We also copied the data from /info/appbio12/data/noise_project to our data directory. We did that with the comandline 'cp -r * /home/n/u1tw68bn/appbio15/Project/data'.
 
+To next time we are going to start programming and therfore we are going to read more about the project to get a deeper 
+understanding about it.  
+
+2015-12-18
+Today we worked futher with understanding the project and what it's saying before creating our program. 
+2 files have been created: code2015-12-18.py    res2015-12-18.txt
+The code-file there should be code with description but 
+today it is more description on what the code could contain.
+The res-file is the result of what the code gives, tells us, 
+if it has errors what does it depends on and questions. 
+Today it the file contain for the most questions for next time.
+
+2015-12-19
+I have created the same directory structur on my KTH login as we have on Viktors KTH login. I have also copied the data
+from /info/appbio12/data/noise_project as we did 2015-12-15. The plan was to start programming today but I got stuck because I
+did not understand the assigment due to the language. 
+
+To the next time I gonna get help to understand the egnlish so I can start with the code.
+/Eleni Larsson
+
+2015-12-21
+We have started to make the programme Column. We have almoste created the program Column for making the columns. Next
+time we probably will get to do our first test run of our code for making the columns.
+We have to do some error handling in our code to catch if the infile is not a FASTA file. This error controll should
+lie in our function SeqDic.
+We also have to make our code to read in a file to check if the code is working. The read in part in our program will
+later be removed because we are going to make a main program that will read in the files. The main program will then
+call our program Column.
+
+2015-12-22
+We have finnish the program Column today.
+We did 5 test runs of the program before it started working. Fisrt time the program gave our nothing because we forgotted to add
+a reding in argument. The second test it also gave us nothing because we hadent connectet the functions in our program. The third
+test time it gave us an error due to we tried ti slit a list. We solved this problem in our next test run but there we dident get
+wath we wanted. We run thought the program after test four to look after why we got the wrong output. We finde that we hade
+problems with our functions SeqDic and Column. After we hade rewrite those two functions we did our last test run and it gaved us
+the output we where looking fore.     
+Nex time we will start doing the program ReducingNoise. This program will remove noisy columns. In our project discription we are
+told that a column is noisy if:
+
+    there are more than 50% indels,
+    at least 50% of amino acids are unique,
+    no amino acid appears more than twice.
+
+We are consider doing this three criterias in a if statement.
+
+2015-12-29
+I am almost done with the code for ReducingNoise. The program neds to be complement by a function thats reads in a file so that we can
+do a test run of the program. The program consists of three functions. Their is a function for eatch of the three criterias for a
+noisy column.
+/Eleni Larsson
+
+2015-12-29
+
+Today I have gone through the task about fastprot, fnj and dendropy. 
+Unfortunately, I've got a little problem. 
+
+According to our project site the KTH computers (CSC-computers) have dendropy - module installed,
+but I could not find it.
+I tried to import it in python and get the message:
+
+Trace Back (Most Recent call last):
+  File "<stdin>", line 1, in <module>
+Import Error: No module named dendropy
+
+I also tested import DendroPy and get the same results!
+I even used the python command: help ('modules')
+which shows all the modules Python has and where dendropy didn't show up. I wonder if and where the program is available?
+
+I checked how we did the tree earlier in lab 2 to see if it can be helpful but couldn't come up with something.
+
+I tried to download dendropy in my Mac-computer and found a site where you could download it, 
+but unfortunately it did not work.
+I couldn't found other so nothing came of it.
+
+I have found the facts about fnj and fastprot but still do not understand how they work. 
+I have been looking after helpful examples of how to use the two progams, but did not find.
+
+Next time I'll work on to understand the task (eg. check if phylo can be helpful?) 
+and hopefully find some useful code!
+/Viktor Sas
+
+2015-12-31
+Yesterday the 30/12, I sat up late.
+I continued with the project where I have finished, at the 29/12.
+I have found some new sources that may be of use.
+Unfortunately, some of these are less good.
+I have not started with the code, because I do not understand the formula according to the fnj:
+http://www.nada.kth.se/~isaac/publications/FNJ_final_icalp.pdf
+which I guess is the right?!
+/Viktor Sas
+
+2016-01-03
+I have today started to working with the main program. When I started to working with it I realised that it is a good idé for your code to have the tree building and the tree comparing in the main program. In the main program we have a temporary file in the temporary file we put the reduced FASTA file. I wonder if it is a good ide to have the trees in a temporary file as well.
+I also tries to give the program dictonarys as infiles I do not know if this works or not. The program also dose some error handeling. 
+To next time we have to make the program to finde the trees files that was given to us in the data so we can use the trees to campare with the trees we build in the main program. The code for ReducingNoise and the main program needs to be comented
+/Eleni Larsson 
+
+2016-01-04
+I realised that it is probably bettet if the error handeling that checks if a file is a FASTA file or not is in the main program so I put it their instead. I started to read about DendroPy but did not understand it so I emailed the teacher and asked him. I also did the code part to chauch the tree files. The program ReducingNoise hase not bean test runed yet because I cant do test runs on my own computer but I wrote in the code for reading in a file so that next time I am on a school computer I can test it.
+/Eleni Larsson
+
+2016-01-05
+I downloaded the program DendroPy on my logg in on the KTH computers. I tried to finde the fastphylo program but could not finde it. I emailed the techer for help. I hade problem with understanding dendropy I asked the teacher about this too. I hade problem with taxon_namespace the program toled me that my tree files hade diffrent taxon_namespaces so I have to figure out how to make them equal. I checked the program ReducingNoise and it worked the seconed time I run it. I hade named a function with numbers first, missed a : after a definition of a function and I hade forgotten to import the subprogram re.
+I decided today to continue the program by myself dou to problems with my lab partners and my schedules.
+/Eleni Larsson
+
+2016-01-06
+I still can not fined the program FastPhylo on the KTH computer and I can not downloed it on my own computer. I am waiting for answer from my teatcher. I have figered out how dendropy works with the taxon_namespaces so I fixed that today. But I can not test run my program because I need to get acces to FastPhylo. I have commented my code today in the Main program. And I have written a code bit for checking if the reference tree is recovered or not but I do not know if this code workes or not.
+/Eleni Larsson
+
+2016-01-07
+I still can not run the program FastPhylo. I tried to do the comands
+module use /info/DD2404/appbio15/module
+module add appbio15
+But i do not works. I have to contact the teatch tommorow for help. I tried to copy my and Viktors work into a new GitHub account but I can not figure out how to pull och push the work into the new account.
+/Eleni Larsson
+
+2016-01-08
+Today I got help from my teacher how to finde the program FastPhylo so I colde start test running my Main program today. I gave
+up the idé with temporary files because it did not work and I do not have the time to figure out what was wrong. When I ran my
+Main program the first time I thought it was odd that none of the trees with the files with the bad columns taken away
+recovered ás the refernse tree. I founde out that I hade done one indentation error in my ReducingNoise program so I change that.
+/Eleni Larsson
