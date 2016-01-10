@@ -1,0 +1,47 @@
+symmetric_0.5
+Number of times Reference tree is recovered with none reducing file:
+23
+Number of times Reference tree is recovered with reducing file:
+25
+Total number of files:
+300
+
+symmetric_1.0
+Number of times Reference tree is recovered with none reducing file:
+17
+Number of times Reference tree is recovered with reducing file:
+12
+Total number of files:
+300
+
+symmetric_2.0
+Number of times Reference tree is recovered with none reducing file:
+3
+Number of times Reference tree is recovered with reducing file:
+4
+Total number of files:
+300
+
+asymmetric_0.5
+Number of times Reference tree is recovered with none reducing file:
+1
+Number of times Reference tree is recovered with reducing file:
+1
+Total number of files:
+300
+
+asymmetric_1.0
+Number of times Reference tree is recovered with none reducing file:
+0
+Number of times Reference tree is recovered with reducing file:
+0
+Total number of files:
+300
+
+asymmetric_2.0
+Number of times Reference tree is recovered with none reducing file:
+0
+Number of times Reference tree is recovered with reducing file:
+0
+Total number of files:
+300
