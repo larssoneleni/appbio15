@@ -1,0 +1,5 @@
+  File "./ReducingNoise.py", line 34
+    def 50unique(fil)
+         ^
+SyntaxError: invalid syntax
+
