@@ -1,0 +1,6 @@
+Number of times Reference tree is recovered with none reducing file:
+45
+Number of times Reference tree is recovered with reducing file:
+20
+Total number of files:
+1800
