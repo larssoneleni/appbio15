@@ -6,8 +6,8 @@ import collections
 import re
 
 ##
-# Takes a FASTA file. Takes away the columns where there are more than 50% indels.
-# Call column and SeqDic. Caled by 50unique
+# Takes a FASTA file. Places the posistions where the columns there are more than 50% indels in a list.
+# Call column. Caled by TakeAway
 ##
 
 def Indels(fil):
@@ -25,9 +25,9 @@ def Indels(fil):
     return BadColum
 
 ##
-# Takes a FASTA file. Takes away the columns where at least 50% of amino acids
-# are unique.
-# Call Indels and column, Caled by MoreThan2.
+# Takes a FASTA file. Places the posistions where the columns have at least 50% of amino acids
+# are unique in a list.
+# Call column, Caled by TakeAway.
 ##
 
 def Unique(fil):
@@ -49,9 +49,9 @@ def Unique(fil):
     return BadColum
 
 ##
-# Takes a FASTA file. Takes away the columns where no amino acid appers more
-# than twice.
-# Call 50unique and column. Caled by ?
+# Takes a FASTA file. Places the posistions where the columns that have no amino acid appers more
+# than twice in a list.
+# Call column. Caled by TakeAway.
 ##
 def MoreThan2(fil):
     BadColum = [] 
@@ -74,7 +74,10 @@ def MoreThan2(fil):
         else:
             pass
     return BadColum
-
+##
+# Takes a FASTA file. Takes away the bad columns in the sequnce.
+# Call Indels, Unique, MoreThan2 and SeqDic. 
+##
 def TakeAway(fil):
     seq_dic=column.SeqDic(fil)
     BadColum1 = Indels(fil)
