@@ -133,3 +133,14 @@ up the idé with temporary files because it did not work and I do not have the t
 Main program the first time I thought it was odd that none of the trees with the files with the bad columns taken away
 recovered ás the refernse tree. I founde out that I hade done one indentation error in my ReducingNoise program so I change that.
 /Eleni Larsson
+
+2016-01-10
+Today the I started to write my report. I made the conclusion that my data follows a bernoli distribution but they follows a normal
+distribution approximilty due to a large number of files. I creted a test in my Python program Main to find out if the hypothesis it
+is better to use the reduced algoritm but I later find out I could not do that test because I have data materia thas is in pairs. So
+I did did another test varible and saw that I could say that for the symmetric_0.5 test data it is better to use the reduced data.
+\Eleni Larsson
+
+2016-01-11
+I finished my report today.
+\Eleni Larssonn
