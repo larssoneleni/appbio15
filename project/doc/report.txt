@@ -1,16 +1,22 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[swedish]{babel}
+\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{color}
 \usepackage{graphicx}
 \newcommand{\tab}{\hspace*{2em}}
-\newcommand{\bredd}{350}
+%\newcommand{\bredd}{350}
 \usepackage{lmodern,bm}
+\usepackage{comment}
+\usepackage[margin=1.2in]{geometry}
+%\usepackage{float}
+\usepackage{placeins}
+\usepackage{url}
 
 \title{\textbf{Reducing noise in protein multialignments}}
 \author{Eleni Charlotta Larsson\\
-Stockholms University}
+Stockholms University\\
+larsson.eleni@gmail.com}
 
 \begin{document}
 
@@ -18,14 +24,124 @@ Stockholms University}
 \maketitle
 \end{titlepage}
 \section*{Abstract}
+In this project report the goal where to investigate the efficiency of removing ''noisy'' positions in protein sequences when creating newick trees for evolutionary studies. By noisy it is meant that several amino acids in the same position in different sequences have a large variability or a high instances of indels. A program where created in python that placed sequences next to each other and removed noisy elements by column reduction. The reduced data along with unaltered data where then used to build newick trees using the programs fastprot and fnj. These trees where then compared against a reference tree to find the amount of trees that where correctly reproduced. The differences between the amount of reproduced trees created by reducing the data and the amount of reproduced trees created by the unaltered data where statistically analysed to see if the reduced data gave more reproduced trees than the unaltered data. It was found that it could only be statistically proven in one case where the data had high symmetry. The hypothesis for this where that symmetrical elements compensated for the removed noisy columns.   
 \newpage
-\section*{Author Summary}
 \section*{Introduction}
-Multialigemnts are noisy. Therfore they can have regions that are not inherited and they can also have other regions where the correct mulutialigments are impossible to indicate. This regions are considered as ''bad'' columns and in this rapport a column is considered ''bad'' if more than $50\%$ of the column contains of indels, at least $50\%$ of the amino acides are unique and no amino accid appers more than twice. This columns can be removed and the aim is to test if it is worth to remove the ''bad'' columns or not.
-\section*{Results/Discussion}
+In several field of medicine and biology there exists a need for determining evolutionary linkage between different strands of biological sequences. In order to determine the evolutionary origins of a biological sequence one can use multiple sequence alignments. A multiple sequence alignment is sequences alignments of several (three or more) biological stands of ether DNA, protein or rna from different species[1]. In this project the focus is on protein sequences. A multiple sequence alignment is used to build a ''newick'' tree which is a evolutionary tree that is readable for a computer and thus allows faster computation.
+\\
+\\ 
+However, multialigemnts are ''noisy''. By noisy it is meant that several amino acids in the same position in different sequences have a large variability or a high instances of indels. To indicate these positions each sequence is put in a matrix so relevant positions are placed in the same column. Noisy positions are then the columns with high variability, meaning that at least $50\%$ of the amino acids are unique and no amino acid appears more than twice, or columns with a substantial amount of indels, meaning more than $50\%$ of the column contains indels. These are considered bad columns[2]. 
+\\
+\\ 
+This report aims to investigate if removal of such noisy positions can proved a higher amount of correct newick trees, meaning more sequences can be evolutionary coupled to each other.   
+
 \section*{Materials and Methods}
+During this project a method of noise reduction where created. This noise reduction method where then applied to given input data. After this, newick trees where generated for both the unaltered input data and the data achieved by the noise reduced model. The resulting data where then compared with a reference tree to investigate how many recovered trees where obtained by reducing noisy elements and from unaltered. The noise reduction method where implemented in using the programing language python and run on a computer utilizing the Ubuntu operating system.  
+\subsection*{Test data descriptions}
+The data contains of six categoris that is placed in six subdirectories. These are named: \texttt{asymmetric\_0.5}, \texttt{asymmetric\_1.0}, \texttt{asymmetric\_2.0}, \texttt{symmetric\_0.5}, \texttt{symmetric\_1.0}, \texttt{symmetric\_2.0}. Each directory has one reference tree and 300 alignments in it. These alignments where created by using muscle to align the resulting sequences created by evolving along the reference tree. The reference trees are either symmetric or asymmetric due to the number of mutation per site in the sequences. The mutation rate is given in the subdirectories names (0.5, 1.0, 2.0), where the 2.0 has two mutations per sequence position.
+\subsection*{The programs}
+To calculate the amount of reference trees that was recovered with the two methods three program was created in Python. To start with the program Column was made. The first program created where named Column. This consisted of four functions:
+\\
+
+\textbf{-SeqDiq} - This function takes a FASTA file and places the names of the species as a key in a dictionary and the sequences that correspond to the names as their values.
+
+\textbf{-order} - This function takes a FASTA file. The function takes the order of the species and places that number as a key in a dictionary and the name of the species as the value.
+
+\textbf{-SameLength} - This function takes the dictionary that was created in SeqDic and checks if the values has the same length. If the length is not the same it exit the program with an error message.
+
+\textbf{-column} - This function takes a FASTA file. It creates a dictionary with the SeqDic function. This directory is then looped over to make a dictionary containing the numbers from 0 to the length of the sequences minus 1 as the keys. The values are the amino acids at the same position as the key.
+\\
+\\
+After the program Column was made the program ReducingNoise where created. This program consisted of four functions as well.
+\\
+
+\textbf{-Indels} - This function takes a FASTA file. It creates a dictionary by using the function column from the program Column. It loops over the keys in the dictionary and places the positions (keys) where the values consist of more than $50\%$ indels(''-'') in a list.
+
+\textbf{-Unique} - This function takes a FASTA file. It creates a dictionary by using the function column from the program Column. It loops over the keys in the dictionary and places the positions (keys) where at least $50\%$ of the amino acids in the values are unique in a list.
+
+\textbf{-MoreThan2} - This function takes a FASTA file. It creates a dictionary by using the function column from the program Column. It loops over the keys in the dictionary and places the positions (keys) where no amino acids in the values appears more than twice in a list.
+
+\textbf{-TakeAway} - This function takes a FASTA file. It creates a dictionary by using the function SeqDic from the program Column and three list by using the functions Indels, Unique and MoreThan2. The function combines the lists and takes away the numbers that appears more than twice. It then removes the positions that is given from the list in the values in the dictionary. It also checks if the new dictionary is empty and if so it exit the program with an error message.
+\\
+\\
+The last program that was created was the Main program. The Main program takes one or more directories. This program uses the fastprot and fnj programs to create the newnick trees for both the reduced data and the unaltered data. Both the reduced data and the unaltered data has a counter for the times the newnick tree is recovered. The program prints out this two counter to standard out at the end of the run. The program also checks if the files in the directories except the reference tree is FASTA files. If not, the program exit with an error message.          
+\subsection*{Organization of the project}
+The project was organized with help of the Noble's suggestions[3]. The project is uploaded to the GitHub website. The project has the appbio15 directory as the root. Appbio15 is the directory project and it consist of five subdirectories: bin, data, doc, results and src. The bin directory has all the finish code. The data directory consist of the six subdirectories with the test data. The doc directory has the project report as a text file and as a pdf file. The results directory consist of the notebook where one writes the dates, what has been done, results and questions. The results also consist of subdirectories named with the date they were created. In this directories one can find the code that has been test runned that day and the results each test run has given. The src directory consist of the source code.   
+\begin{comment}
 The method to test if it is worth removing the ''bad'' collumns or not was to infers ''newnick'' trees with help of the programms fastprot and fnj from the FastPhylo package. The trees where created on the data where the ''bad'' collumns where remmoved as well on the data where the ''bad'' collumns where remaning. This ''newnick'' trees was then commpaired with the referens tree in the data. The data connist of 6 directories (\texttt{asymmetric\_0.5}, \texttt{asymmetric\_1.0}, \texttt{asymmetric\_2.0}, \texttt{symmetric\_0.5}, \texttt{symmetric\_1.0}, \texttt{symmetric\_2.0}) where each diretorie containe one referns tree and 300 FASTA files.\\
 \\
-To get rid of the ''bad'' collumns the proggraming language Python was used. With Python three program was created (Main, ReducingNoise, collumn). The Main program creates the trees and compares them with the refernse tree. The Main program also makes the program to exit with an error masseges if the input is not a FASTA file or if the input is a directorie how does not exist. The ReducingNoise program takes away the bad collumns and the column program creates the columns.          
-    
+To get rid of the ''bad'' collumns the proggraming language Python was used. With Python three program was created (Main, ReducingNoise, collumn). The Main program creates the trees and compares them with the refernse tree. The Main program also makes the program to exit with an error masseges if the input is not a FASTA file or if the input is a directorie how does not exist. The ReducingNoise program takes away the bad collumns and the column program creates the columns.
+\end{comment}
+\section*{Results}
+The program Main returned the number of times the reference tree was recovered for the two methods, as shown in \textbf{Table 1}. The recovery rate of the trees follows an Bernoulli distribution, thus to calculate the mean and standard variation for the Bernoulli distribution the following two formulas where used[4]:\\
+
+$E[X]=\frac{\sum_{i=1}^Nx_i}{N}=p,$\\
+
+$\sigma=\sqrt{p(1-p)},$
+\\
+\\
+where $N$ is the number of files and $x_i=0$ or $x_i=1$. The mean and standard derivation for each subdirectory can be found in \textbf{Table 2}. To see if the reduced data gives more recovered trees than the unaltered data, a test variable was design. The distribution of the unaltered and reduced data can be approximated to follow a normal distribution because the central limit theorem states this is possible for data with large size $N$, as it was for the data. The distribution for the reduced case was $N(\mu,\sigma_1)$ and for the unaltered $N(\mu+\Delta,\sigma_2)$. In this project the sampling in pairs method where used to find out the test variable because the reduced data and the unaltered data can be seen as pairs. To use the sampling in pairs method one has to take the amount of reduced data and subtract the amount of unaltered data. This will give the distribution $N(\Delta,\sigma_1+\sigma_2)$ and it was on this distribution the test variable where created from. The formula for the test variable is as follows[4]:\\
+
+$T=\frac{\bar{X}-\Delta_0}{\sigma/\sqrt{N}},$
+\\
+\\
+where $\bar{X}=\sum_{i=1}^N(x_i-y_i)$ and $\Delta_0=0$. The results for the test variable can be found in \textbf{Tabell 1}. 
+\FloatBarrier  
+\begin{center}
+\begin{table}
+\begin{tabular}[H]{|l|l|l|l|l|}
+\hline
+Directories & Unaltered & Reduced & Files & T \\ \hline
+\texttt{symmetric\_0.5} & 23 & 25 & 300 & 90.30 \\ \hline
+\texttt{symmetric\_1.0} & 17 & 12 & 300 & -285.75 \\ \hline
+\texttt{symmetric\_2.0} & 4 & 3  & 300 & -114.07 \\ \hline
+\texttt{asymmetric\_0.5} & 1 & 1 & 300 & 0 \\ \hline
+\texttt{asymmetric\_1.0} & 0 & 0 & 300 & X \\ \hline
+\texttt{asymmetric\_2.0} & 0 & 0 & 300 & X \\ \hline
+\end{tabular}
+\caption{Table of the number of times the reference tree is recovered for both the unaltered data and the reduced data, the number of files in each subdirectories that contains the test data and the test variable (T) for the subdirectory. X means that no test variable where calculated (further explanation found in the \textbf{Discussion} section).} 
+\end{table}
+\end{center}
+\begin{center}
+\begin{table}
+\begin{tabular}[H]{|l|l|l|l|}
+\hline
+Reduced/Unaltered & Directories & Mean & sd \\ \hline
+Reduced & \texttt{symmetric\_0.5} & 0.083 & 0.28 \\ \hline
+Reduced & \texttt{symmetric\_1.0} & 0.040 & 0.20 \\ \hline
+Reduced & \texttt{symmetric\_2.0} & 0.010 & 0.099 \\ \hline
+Reduced & \texttt{asymmetric\_0.5} & 0.0033 & 0.058\\ \hline
+Reduced & \texttt{asymmetric\_1.0} & 0 & 0 \\ \hline
+Reduced & \texttt{asymmetric\_2.0} & 0 & 0 \\ \hline
+Unaltered & \texttt{symmetric\_0.5} & 0.077 & 0.27 \\ \hline
+Unaltered & \texttt{symmetric\_1.0} & 0.057 & 0.23 \\ \hline
+Unaltered & \texttt{symmetric\_2.0} & 0.013 & 0.11 \\ \hline
+Unaltered & \texttt{asymmetric\_0.5} & 0.0033 & 0.058 \\ \hline
+Unaltered & \texttt{asymmetric\_1.0} & 0 & 0 \\ \hline
+Unaltered & \texttt{asymmetric\_2.0} & 0 & 0 \\ \hline
+\end{tabular}
+\caption{The mean and standard derivation (sd) for every subdirectory that is containing the test data. The mean and sd is calculated both on the reduced data and the unaltered data.}
+\end{table}
+\end{center}
+\section*{Discussion}
+\subsection*{Results}
+For the subdirectories \texttt{symmetric\_1.0} and \texttt{asymmetric\_2.0} no test was done. This decision was made because the number of times the reference tree was recovered for the reduced data and the unaltered data was equal to zero. Therefore one get a nominator and a denominator that equals to zero and this derivation leads to mathematically insignificant results. For these two directories there can’t be any definitive conclusions and thus they are left out of this discussion.\\
+\\        
+The null hypnosis was $H_0:\text{ }\Delta\leq 0$ and the alternative hypothesis was $H_1:\text{ }\Delta>0$. This hypothesis gave the critical area $C=\{T\geq \lambda_{\alpha}\}.$ In this project, $\alpha$ was chosen to be 0.00005 which gives the critical area $C=\{T\geq 3.89\}$[4]. In \textbf{Table 1} one can see that for the data in the \texttt{symmetric\_0.5} directory the null hypothesis can be rejected on the significant level $0.005\%$ but for the other directories this can’t be done, even for a significant level of $5\%$. From this the conclusion was made that for the \texttt{symmetric\_0.5} it was better to use the reduced data but for the other ones no definitive conclusion can be made.\\
+\\
+The conclusion for the whole test data was that it depends on how symmetric the alignments are if it is worth going through a reduction algorithm or not.  The presented hypothesis for this result is as follows. For more symmetric input alignments it is beneficial to remove ''noisy'' positions because other correct positions will compensate by their symmetry for the loss of bad columns. However, as the data becomes more asymmetric this compensation is reduced and less correct trees can be found.\\
+\\
+\subsection*{Structure}
+The project structure where inspired of Noble's suggestions. However, all of suggestions where not followed. For example the dates in the data directory was removed due to the fact that the test data was only inserted once. In the beginning the structure of the results directory where different. For instance files such as ''Code1Column2015-12-22'' and ''Res1Column2015-12-22'' where first created. But this structure became to difficult to organize files and thus the structure was redone to what is described in the \textbf{Materials and Methods} section. Noble also suggested that dates can be used to connect the different part in the project. This was used in this project because the author thought it was an easy way to find relevant code. Also the bin, src and doc directories is used because it makes it easy to find and connect the report, code, notebook and the results[3].
+\newpage
+\begin{thebibliography}{30}
+\bibitem{} \textsl{Multiple Sequence Alignment}
+    \url{https://gtbinf.wordpress.com/biol-41506150/multiple-sequence-alignment/}.
+\bibitem{Project} \textsl{Reducing noise in protein multialignments}
+    \url{https://www.kth.se/social/course/DD2404/subgroup/ht-2015-appbio15/page/reducing-noise-in-protein-multialignment-2/}.
+\bibitem{Structure} William Stafford Noble \textsl{A Quick Guide to Organizing Computational Biology Projects}
+    \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424}.    
+\bibitem{Statistic} Alm, Sven E. and Britton, Tom. 2008. \textsl{Stokastik, Sannoliklhetsteori och statistkteori med tillämpningar}. 1. ed. Liber.
+\end{thebibliography}
+   
 \end{document}
