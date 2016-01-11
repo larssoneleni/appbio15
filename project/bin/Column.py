@@ -10,25 +10,26 @@ from Bio import AlignIO
 def SeqDic(lines_list):
     dic = {}	
     key = ''
-    order = {}
     i=0    
     for line in lines_list:
     	if line[0]=='>' and len(line.split())>1:
             list_line=line.split()
             dic[list_line[0][1:]]=''
 	    key = list_line[0][1:]
-            order[str(i)]=list_line[0][1:]
             i=i+1	
 	elif line[0]=='>':
             dic[line[0][1:-1]]=''
 	    key = line[0][1:-1]
-            order[str(i)]=line[0][1:-1]
             i=i+1		 
 	else:
 	    line=line.replace('\n','')
             dic[key]=dic[key]+line         	         
     return dic
 
+##
+# Takes a FASTA file. Places the order thata the spices is placed in the files as the key in a dictonary and the species
+# names as the values.
+##
 def order(lines_list):
     dic = {}
     i = 0
